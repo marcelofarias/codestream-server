@@ -40,7 +40,6 @@ sandutil_load_options $CSBE_SANDBOX || { echo "failed to load options" >&2 && re
 export CSBE_NODE_VER=12.14.1
 export PATH=$CSBE_SANDBOX/node/bin:$CSBE_TOP/node_modules/.bin:./node_modules/.bin:$PATH
 
-
 # Add $MY_SANDBOX/bin to the search path
 export PATH=$CSBE_TOP/bin:$PATH
 
@@ -63,4 +62,12 @@ export CSBE_PIDS=$CSBE_SANDBOX/pid    # pid files directory
 # https://github.com/TeamCodeStream/dev_tools/blob/master/README/README.deployments.md)
 [ -z "$CSBE_ENV" ] && export CSBE_ENV=local
 
-# export CSSVC_TOP=$CSBE_TOP
+export CSSVC_BACKEND_ROOT=$CSBE_TOP
+
+# These variables are defined by the sandbox-env-loader.sh script which won't be
+# called for the individual services
+export CS_API_NAME=$CSBE_NAME
+export CS_API_SANDBOX=$CSBE_SANDBOX
+export CS_API_TOP=$CSBE_TOP/api_server
+# CS_API_DEPS=....
+. $CS_API_TOP/sandbox/defaults.sh
